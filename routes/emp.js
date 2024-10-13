@@ -32,3 +32,30 @@ router.post("/employees", async (req, res) => {
       res.status(400).send("Cant find employee");
     }
   });
+  router.put("/employees/:eid", async (req, res) => {
+    try {
+      const updateEmployee = await EmployeeModel.findByIdAndUpdate(
+        req.params.eid,
+        req.body
+      );
+      res.status(200).send(updateEmployee);
+    } catch (error) {
+      res.status(400).json({ message: "Please enter valid employee info" });
+    }
+  });
+  router.delete("/employees/:eid", async (req, res) => {
+    try {
+      const deleteEmployee = await EmployeeModel.findByIdAndDelete(
+        req.params.eid
+      );
+      if (!deleteEmployee) {
+        res.status(400).json({ message: "No Employee to Delete" });
+      }
+      res.status(204).send(deleteEmployee);
+    } catch (error) {
+      res.status(400).send(error);
+    }
+  });
+  
+  module.exports = router;
+  
