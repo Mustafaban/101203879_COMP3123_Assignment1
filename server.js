@@ -14,3 +14,14 @@ mongoose.connect(DB_STRING, {
 })
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api/user', userRouter)
+app.use('/api/emp', empRouter)
+
+app.get('/', (req, res) => {
+    res.send('Assignment 1')
+})
+
+app.listen(SERVER_PORT, () =>{
+    console.log(`Server running at http://localhost:${SERVER_PORT}/`)
+})
